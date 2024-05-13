@@ -16,12 +16,6 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12">
-            <div class="form-group mb-3">
-                {{ Form::label('extra_fields', trans('plugins/auto-content::content.form.extra_field'), ['class' => 'text-title-field']) }}
-                <div id="extra_items"></div>
-            </div>
-        </div>
         <div class="col-md-12 col-sm-6">
             {{ Form::label('prompt', trans('plugins/auto-content::content.form.prompt_label'), ['class' => 'text-title-field']) }}
             <div class="form-group mb-3">
