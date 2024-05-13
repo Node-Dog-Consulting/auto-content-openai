@@ -19,6 +19,7 @@ return [
         'openai_max_tokens' => 'Max tokens',
         'openai_frequency_penalty' => 'Frequency penalty',
         'openai_presence_penalty' => 'Presence penalty',
+        'openai_api_url' => 'OpenAI API URL',
         'proxy' => 'Setup AutoContent proxy',
         'proxy_enable' => 'Do you want to use proxy when calling Chatgpt api?',
         'proxy_description' => 'Configure proxy to connect to Chatgpt api.',

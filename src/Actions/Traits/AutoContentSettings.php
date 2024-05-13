@@ -39,6 +39,7 @@ trait AutoContentSettings
                 'autocontent_proxy_port',
                 'autocontent_proxy_username',
                 'autocontent_proxy_password',
+                'autocontent_openai_api_url',
             ])
         );
 

@@ -20,6 +20,7 @@ class Plugin extends PluginOperationAbstract
             'autocontent_openai_key' => null,
             'autocontent_openai_temperature' => 1,
             'autocontent_openai_frequency_penalty' => 0,
+            'autocontent_openai_api_url' => 'https://api.openai.com',
             'autocontent_openai_presence_penalty' => 0,
             'autocontent_openai_models' => '["gpt-3.5-turbo"]',
             'autocontent_openai_default_model' => 'gpt-3.5-turbo',

@@ -48,6 +48,15 @@
                     </div>
                     <div class="form-group mb-3">
                         <label class="text-title-field"
+                               for="autocontent_openai_api_url">{{ trans('plugins/auto-content::content.setting.openai_api_url') }}
+                        </label>
+                        {!! Form::text('autocontent_openai_api_url', setting('autocontent_openai_api_url'), [
+                            'placeholder' => trans('plugins/auto-content::content.setting.openai_api_url'),
+                            'class' => 'next-input',
+                        ]) !!}
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="text-title-field"
                             for="autocontent_openai_presence_penalty">{{ trans('plugins/auto-content::content.setting.openai_presence_penalty') }}
                         </label>
                         {!! Form::text('autocontent_openai_presence_penalty', setting('autocontent_openai_presence_penalty'), [

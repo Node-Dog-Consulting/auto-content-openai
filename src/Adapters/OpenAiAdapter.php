@@ -30,7 +30,7 @@ class OpenAiAdapter implements OpenAiInterface
         }
 
         $this->openai = new OpenAi($token);
-
+        $this->openai->setBaseURL(setting('autocontent_openai_api_url', 'https://api.openai.com'));
         return $this;
     }
 
