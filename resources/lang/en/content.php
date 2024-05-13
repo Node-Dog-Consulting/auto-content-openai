@@ -34,7 +34,6 @@ return [
         'title' => 'Auto Content',
         'generate' => 'Generate content',
         'push' => 'Push content',
-        'choose_field' => 'Choose form field',
         'api_model' => 'Api model',
         'prompt_type' => 'Prompt type',
         'prompt_label' => 'Prompt message',

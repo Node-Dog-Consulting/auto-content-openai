@@ -7,17 +7,6 @@
     <div class="row">
         <div class="col-md-4 col-sm-6">
             <div class="form-group mb-3">
-                {{ Form::label('target_field', trans('plugins/auto-content::content.form.choose_field'), ['class' => 'text-title-field']) }}
-                <div class="ui-select-wrapper">
-                    {{ Form::select('target_field', $acceptFields, 'content', ['class' => 'ui-select']) }}
-                    <svg class="svg-next-icon svg-next-icon-size-16">
-                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#select-chevron"></use>
-                    </svg>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-6">
-            <div class="form-group mb-3">
                 {{ Form::label('prompt_type', trans('plugins/auto-content::content.form.prompt_type'), ['class' => 'text-title-field']) }}
                 <div class="ui-select-wrapper">
                     {{ Form::select('prompt_type', $promptTitle, null, ['class' => 'ui-select']) }}
