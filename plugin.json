@@ -5,6 +5,6 @@
     "provider": "FoxSolution\\AutoContent\\Providers\\AutoContentServiceProvider",
     "author": "Node Dog Consulting",
     "url": "https://nodedog.consulting",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Auto generate content"
 }
