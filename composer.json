@@ -1,14 +1,19 @@
 {
-    "name": "foxsolution/auto-content",
-    "description": "Auto generate and spin content",
+    "name": "nodedogconsulting/auto-content",
+    "description": "Auto generate content",
     "type": "package",
     "require": {
-        "orhanerday/open-ai": "^4.7.1"
+        "orhanerday/open-ai": "^5.1"
     },
     "authors": [
         {
             "name": "Van Nguyen",
             "homepage": "https://anhvan.realme.bio",
+            "role": "Developer"
+        },
+        {
+            "name": "James Taylor",
+            "homepage": "https://nodedog.consulting",
             "role": "Developer"
         }
     ]

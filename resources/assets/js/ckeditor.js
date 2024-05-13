@@ -1,4 +1,4 @@
-import CKEditorUploadAdapter from '../../../../../core/base/resources/assets/js/ckeditor-upload-adapter';
+import CKEditorUploadAdapter from '../../../../../core/base/resources/js/ckeditor-upload-adapter';
 
 export default function initCkEditor(element, extraConfig) {
     const editor = document.querySelector('#' + element);

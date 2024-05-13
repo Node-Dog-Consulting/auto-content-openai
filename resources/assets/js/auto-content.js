@@ -3,16 +3,11 @@ class AutoContent {
     constructor() {
         this.$body = $('body');
         this.promptForm = $('#setup-prompt');
-        this.spinForm = $('#setup-spin');
         this.generateModal = $('#auto-content-modal');
-        this.spinModal = $('#auto-content-spin-modal');
         this.$body = $('body');
 
         if ($('#auto-content-modal').length) {
             this.handleGenerateEvents();
-        }
-        if ($('#auto-content-spin-modal').length) {
-            this.handleSpinEvents();
         }
         this.initEditor();
     }
@@ -20,9 +15,6 @@ class AutoContent {
     initEditor() {
         if (document.getElementById('preview_content')) {
             initCkEditor('preview_content');
-        }
-        if (document.getElementById('preview_spin_content')) {
-            initCkEditor('preview_spin_content');
         }
     }
 
@@ -43,7 +35,7 @@ class AutoContent {
         promptUrl = new URL(promptUrl);
         const entity = promptUrl.searchParams.get('entity');
         const $form = $('form');
-        const $except = ['description', 'content', 'uri', 'ip', 'model', "prompt", "target_field", "target_spin_field", "preview_content", "target_spin_field", "spin-template"];
+        const $except = ['description', 'content', 'uri', 'ip', 'model', "prompt", "target_field", "preview_content"];
         let $formData = $form.serializeArray();
 
         $formData.push({ name: 'entity', value: entity });
@@ -164,129 +156,15 @@ class AutoContent {
         $btnPush.on('click', function (event) {
             event.preventDefault();
 
+            console.log('here');
             let editor = window.EDITOR.CKEDITOR[$previewEditor.prop('id')]
             let $contentValue = editor.getData();
-            let $targetName = $targetField.val();
-
-            $self.pushContentToTarget($contentValue, $targetName);
+            $self.pushContentToTarget($contentValue, 'content');
+            editor.setData('');
+            $('#auto-content-modal').modal('hide');
         });
 
         renderPrompt(0);
-    }
-
-    handleSpinEvents() {
-        let $self = this;
-        let $targetField = $self.spinForm.find('#target_spin_field');
-
-        let $spinTemplateTitle = $self.spinForm.find('#spin_template_title');
-        let $spinEditor = $self.spinForm.find('#spin');
-        let $previewEditor = $self.spinForm.find('#preview_spin_content');
-
-        let $btnSpin = $('#spin-content');
-        let $btnPush = $('#push-spin-content-to-target');
-        let $btnOpenSpin = $('.btn-auto-content-spin');
-        $self.spinModal.find('.modal-body .loading-spinner').hide();
-
-        const renderSpinTemplate = (index = 0) => {
-            if (typeof $spinTemplates !== 'undefined' && $spinTemplates[index]) {
-                $spinEditor.val($spinTemplates[index]?.content);
-            }
-        }
-
-        const pushTargetContentToSpin = ($targetName = '') => {
-            let $contentValue = '';
-            let $previewId = $previewEditor.prop('id');
-
-            if (!$targetName) {
-                return;
-            }
-            let $contentTarget = $('form').find('[name="' + $targetName + '"]');
-            $contentTarget.each(function (index, element) {
-                let id = element.id || '';
-
-                if (EDITOR.CKEDITOR[id]) {
-                    $contentValue = EDITOR.CKEDITOR[id].getData($contentValue)
-                } else {
-                    $contentValue = element.value;
-                }
-            });
-
-            if (EDITOR.CKEDITOR[$previewId]) {
-                EDITOR.CKEDITOR[$previewId].setData($contentValue);
-            } else {
-                $previewEditor.val($contentValue);
-            }
-        }
-
-        const getSpinTemplate = () => {
-            let $spinValue = $spinEditor.val();
-            $spinValue = $spinValue.split(/\r?\n/)
-                .filter(element => element)
-                .map((parents) => {
-                    let elements = parents?.slice(1, -1)?.split('|');
-                    elements = elements
-                        .filter(element => {
-                            element = element?.trim();
-                            return element.length
-                        })
-                        .map((element) => {
-                            return element?.trim();
-                        })
-                    return elements;
-                });
-
-            return $spinValue;
-        }
-
-        $btnOpenSpin.on('click', function (event) {
-            event.preventDefault();
-            let $targetName = $targetField.val();
-            pushTargetContentToSpin($targetName);
-            $('#auto-content-spin-modal').modal('show');
-        });
-
-        $btnSpin.on('click', function (e) {
-            e.preventDefault();
-            let $spinValue = getSpinTemplate();
-            let $previewValue = $previewEditor.val();
-            let $previewId = $previewEditor.prop('id')
-
-            for (const words of $spinValue) {
-                for (const item of words) {
-                    let regex = new RegExp(item, 'gi');
-
-                    if ($previewValue.match(regex)) {
-                        const randomWord = words[Math.floor(Math.random() * words.length)];
-                        $previewValue = $previewValue.replace(regex, randomWord);
-                    }
-                }
-            }
-
-            if (EDITOR.CKEDITOR[$previewId]) {
-                EDITOR.CKEDITOR[$previewId].setData($previewValue);
-            } else {
-                $previewEditor.val($previewValue);
-            }
-        });
-
-        $btnPush.on('click', function (e) {
-            e.preventDefault();
-            let $contentValue = $previewEditor.val();
-            let $targetName = $targetField.val();
-
-            $self.pushContentToTarget($contentValue, $targetName);
-        });
-
-        $targetField.on('change', function () {
-            let $targetName = $targetField.val();
-            pushTargetContentToSpin($targetName);
-        });
-
-        $spinTemplateTitle.on('change', function (e) {
-            renderSpinTemplate($(this).val());
-        });
-
-        renderSpinTemplate();
     }
 
     handlePromptField($data) {

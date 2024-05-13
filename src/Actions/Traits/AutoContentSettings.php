@@ -39,7 +39,6 @@ trait AutoContentSettings
                 'autocontent_proxy_port',
                 'autocontent_proxy_username',
                 'autocontent_proxy_password',
-                'autocontent_spin_template',
             ])
         );
 
@@ -51,9 +50,7 @@ trait AutoContentSettings
     protected function saveSettings(array $data): void
     {
         foreach ($data as $settingKey => $settingValue) {
-            if (
-                $settingKey == 'autocontent_spin_template'
-                || $settingKey == 'autocontent_prompt_template'
+            if ($settingKey == 'autocontent_prompt_template'
             ) {
                 $settingValue = array_values($settingValue);
             }

@@ -28,9 +28,6 @@ class SettingRequest extends BaseRequest
             'autocontent_proxy_port' => 'required_if:autocontent_proxy_enable,1|numeric|min:0|max:65536|nullable',
             'autocontent_proxy_username' => 'string|nullable',
             'autocontent_proxy_password' => 'string|nullable',
-            'autocontent_spin_template' => 'array|nullable',
-            'autocontent_spin_template.*.title' => 'string|nullable',
-            'autocontent_spin_template.*.content' => 'string|nullable',
         ];
     }
 }

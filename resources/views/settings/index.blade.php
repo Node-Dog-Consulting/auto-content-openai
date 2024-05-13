@@ -167,24 +167,6 @@
             </div>
         </div>
 
-
-        <div class="flexbox-annotated-section" id="spin-template-wrapper">
-            <div class="flexbox-annotated-section-annotation">
-                <div class="annotated-section-title pd-all-20">
-                    <h2>{{ trans('plugins/auto-content::content.setting.spin') }}</h2>
-                </div>
-                <div class="annotated-section-description pd-all-20 p-none-t">
-                    <p class="color-note">{{ trans('plugins/auto-content::content.setting.spin_description') }}</p>
-                </div>
-            </div>
-
-            <div class="flexbox-annotated-section-content">
-                <div class="wrapper-content pd-all-20">
-                    <a class="link add-template" data-placeholder=""><small>
-                            + {{ trans('plugins/auto-content::content.setting.add_more') }}</small></a>
-                </div>
-            </div>
-        </div>
         <div class="flexbox-annotated-section" style="border: none">
             <div class="flexbox-annotated-section-annotation">
                 &nbsp;
@@ -199,46 +181,16 @@
 
     <script>
         @php
-            $templateJson = setting('autocontent_spin_template') ?: '[]';
             $promptJson = setting('autocontent_prompt_template') ?: '[]';
         @endphp
 
-        var $spinTemplates = [];
         var $promptTemplates = [];
-        try {
-            $spinTemplates = JSON.parse(@json($templateJson));
-        } catch (error) {
-            $spinTemplates = [];
-        }
         try {
             $promptTemplates = JSON.parse(@json($promptJson));
         } catch (error) {
             $promptTemplates = [];
         }
     </script>
-
-    <template id="spin-html-template">
-        <div class="mb-4 border rounded-top rounded-bottom p-3 bg-light more-template">
-            <div class="form-group mb-3">
-                <label class="text-title-field">
-                    {{ trans('plugins/auto-content::content.setting.spin_template_title') }}
-                    <a class="btn btn-link text-danger remove-template"><i class="fas fa-minus"></i></a>
-                </label>
-                {!! Form::text('autocontent_spin_template[][title]', null, [
-                    'placeholder' => trans('plugins/auto-content::content.setting.spin_template_title'),
-                    'class' => 'next-input item-title',
-                ]) !!}
-            </div>
-            <div class="form-group mb-3">
-                <label class="text-title-field">{{ trans('plugins/auto-content::content.setting.spin_label') }}
-                </label>
-                {!! Form::textarea('autocontent_spin_template[][content]', null, [
-                    'placeholder' => trans('plugins/auto-content::content.setting.spin_example'),
-                    'class' => 'next-input item-content',
-                ]) !!}
-            </div>
-        </div>
-    </template>
 
     <template id="prompt-html-template">
         <div class="mb-4 border rounded-top rounded-bottom p-3 bg-light more-template">

@@ -1,15 +1,10 @@
 class SettingManagement {
     constructor() {
         this.$modelWrapper = $('#openai-model-wrapper');
-        this.$spinTemplateWrapper = $('#spin-template-wrapper');
         this.$promptTemplateWrapper = $('#prompt-template-wrapper');
 
         if (this.$modelWrapper.length) {
             this.handleMultipleModels();
-        }
-
-        if (this.$spinTemplateWrapper.length && Array.isArray($spinTemplates)) {
-            this.handleMultiSpinTemplate();
         }
 
         if (this.$promptTemplateWrapper.length && Array.isArray($promptTemplates)) {
@@ -63,19 +58,15 @@ class SettingManagement {
         render();
     }
 
-    handleMultiSpinTemplate() {
-        this.handleMultiTemplate('spin');
-    }
-
     handleMultiPromptTemplate() {
         this.handleMultiTemplate('prompt');
     }
 
     handleMultiTemplate(templateType) {
         const $self = this;
-        const $templateWrapper = templateType === 'spin' ? this.$spinTemplateWrapper : this.$promptTemplateWrapper;
+        const $templateWrapper = this.$promptTemplateWrapper;
         const $addBtn = $templateWrapper.find('.add-template');
-        const $template = $(templateType === 'spin' ? '#spin-html-template' : '#prompt-html-template').get(0);
+        const $template = $('#prompt-html-template').get(0);
         let index = 0;
 
         const addTemplate = (title = '', content = '') => {
@@ -92,7 +83,7 @@ class SettingManagement {
         };
 
         const render = () => {
-            const $templates = templateType === 'spin' ? $spinTemplates : $promptTemplates;
+            const $templates = $promptTemplates;
             $templates.forEach(({ title, content }) => {
                 addTemplate(title, content);
             });

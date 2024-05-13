@@ -3,8 +3,8 @@
     "name": "Auto Content",
     "namespace": "FoxSolution\\AutoContent\\",
     "provider": "FoxSolution\\AutoContent\\Providers\\AutoContentServiceProvider",
-    "author": "Fox Solutions",
+    "author": "Node Dog Consulting",
     "url": "https://foxsolutions.vn",
     "version": "1.0.2",
-    "description": "Auto generate and spin content"
+    "description": "Auto generate content"
 }

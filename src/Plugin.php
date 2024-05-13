@@ -23,7 +23,6 @@ class Plugin extends PluginOperationAbstract
             'autocontent_openai_presence_penalty' => 0,
             'autocontent_openai_models' => '["gpt-3.5-turbo"]',
             'autocontent_openai_default_model' => 'gpt-3.5-turbo',
-            'autocontent_spin_template' => '[]',
         ];
 
         foreach ($settings as $key => $item) {
