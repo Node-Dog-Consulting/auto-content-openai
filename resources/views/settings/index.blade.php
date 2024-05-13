@@ -15,7 +15,7 @@
             <div class="flexbox-annotated-section-content">
                 <div class="wrapper-content pd-all-20">
                     <div class="form-group mb-3">
-                        <label>{{ trans('plugins/auto-content::content.setting.openai_key') }}</label>
+                        <label>{!! trans('plugins/auto-content::content.setting.openai_key') !!}</label>
                         <input type="password" placeholder="**********" name="autocontent_openai_key" class="next-input"
                             value="{{ old('autocontent_openai_key', setting('autocontent_openai_key')) }}" />
                     </div>
@@ -77,7 +77,7 @@
                         <div class="help-ts">
                             <i class="fa fa-info-circle"></i>
                             <a href="https://platform.openai.com/docs/models/model-endpoint-compatibility"
-                                target="_blank">{{ trans('plugins/auto-content::content.setting.see_documention') }}</a>
+                                target="_blank">{{ trans('plugins/auto-content::content.setting.see_documentation') }}</a>
                         </div>
                     </div>
                 </div>
