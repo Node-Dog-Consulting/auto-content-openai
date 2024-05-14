@@ -8,9 +8,17 @@ Route::group(['namespace' => 'FoxSolution\AutoContent\Http\Controllers', 'middle
                     'as' => 'generate-prompt',
                     'uses' => 'AutoContentController@generatePrompt',
                 ]);
+                Route::post('/generate-image', [
+                    'as' => 'generate-image',
+                    'uses' => 'AutoContentController@generateImage',
+                ]);
                 Route::post('/', [
                     'as' => 'generate',
                     'uses' => 'AutoContentController@generate',
+                ]);
+                Route::post('/save-image', [
+                    'as' => 'save-image',
+                    'uses' => 'AutoContentController@saveImage',
                 ]);
             });
 

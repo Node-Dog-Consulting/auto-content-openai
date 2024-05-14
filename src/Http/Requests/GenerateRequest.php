@@ -9,7 +9,8 @@ class GenerateRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'prompt' => 'required|string',
+            'prompt' => 'string|nullable',
+            'image_prompt' => 'string|nullable',
         ];
     }
 }

@@ -12,10 +12,13 @@ class ChatResultHandler
 
     private string $finishReason;
 
-    public function __construct(string $chatResult)
-    {
+    public function __construct(string $chatResult, $type = 'chat') {
         $this->chatResult = json_decode($chatResult, true);
-        $this->handleChatResult();
+        if ($type == 'chat') {
+            $this->handleChatResult();
+        } else {
+            $this->handleImageResult();
+        }
     }
 
     private function handleChatResult(): void
@@ -32,6 +35,24 @@ class ChatResultHandler
         }
 
         if ($this->resultContent && $this->finishReason != 'stop') {
+            throw new Exception(trans('plugins/auto-content::content.error.An error occurred while processing the api'));
+        }
+    }
+
+    private function handleImageResult(): void
+    {
+        if (data_get($this->chatResult, 'error')) {
+            throw new Exception(data_get($this->chatResult, 'error.message'));
+        }
+
+        $this->resultContent = $this->chatResult['data'][0]['url'];
+        $this->finishReason = 'stop';
+
+        if ($this->finishReason != 'stop') {
+            throw new Exception(trans('plugins/auto-content::content.error.Incomplete returned content'));
+        }
+
+        if ($this->resultContent && ($this->finishReason != 'stop')) {
             throw new Exception(trans('plugins/auto-content::content.error.An error occurred while processing the api'));
         }
     }

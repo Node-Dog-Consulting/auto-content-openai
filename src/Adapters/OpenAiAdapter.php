@@ -88,6 +88,26 @@ class OpenAiAdapter implements OpenAiInterface
         return $chatHandler->getResultContent();
     }
 
+    public function generateImage(string $prompt, string $size): string
+    {
+        set_time_limit(500);
+
+        if (! $this->checkInitedOpenAi()) {
+            return '';
+        }
+        $size = explode(' ', $size, 2)[0];
+        $chatResult = $this->openai->image([
+            "model" => "dall-e-3",
+            "prompt" => $prompt,
+            "n" => 1,
+            "size" => $size,
+            "response_format" => "url",
+        ]);
+        $chatHandler = new ChatResultHandler($chatResult, 'image');
+
+        return $chatHandler->getResultContent();
+    }
+
     private function prepareChatParams(string $prompt): array
     {
         return [

@@ -1,14 +1,20 @@
 import initCkEditor from './ckeditor';
+
 class AutoContent {
     constructor() {
         this.$body = $('body');
         this.promptForm = $('#setup-prompt');
         this.generateModal = $('#auto-content-modal');
+        this.imageModal = $('#auto-content-image-modal');
         this.$body = $('body');
 
-        if ($('#auto-content-modal').length) {
+        if (this.generateModal.length) {
             this.handleGenerateEvents();
         }
+        if (this.imageModal.length) {
+        this.handleImageEvents();
+        }
+
         this.initEditor();
     }
 
@@ -38,7 +44,7 @@ class AutoContent {
         const $except = ['description', 'content', 'uri', 'ip', 'model', "prompt", "target_field", "preview_content"];
         let $formData = $form.serializeArray();
 
-        $formData.push({ name: 'entity', value: entity });
+        $formData.push({name: 'entity', value: entity});
         $formData = $formData.filter(item => !$except.includes(item.name));
 
         $.ajax({
@@ -88,6 +94,88 @@ class AutoContent {
             Botble.showSuccess('Copied content!')
         });
     }
+
+    handleImageEvents() {
+        let $self = this;
+        let btnOpenImageGenerate = $('.btn-auto-content-image');
+        let $btnGenerate = $('#generate-image');
+        let $btnPush = $('#push-content-to-target-image');
+        let imagePreview = $('#image_preview');
+        let $promptEditor = $('#image_prompt');
+        let imageUrl = $('#image_url');
+        let cancelBtn = $('#image_cancel');
+
+        cancelBtn.on('click', function () {
+            imagePreview.hide();
+            $promptEditor.val('');
+        });
+
+        btnOpenImageGenerate.on('click', function (event) {
+            event.preventDefault();
+            $self.imageModal.modal('show');
+        });
+
+        $btnPush.on('click', function (event) {
+            event.preventDefault();
+            let current = $(event.currentTarget);
+            let generateUrl = current.data('generate-url');
+            $.ajax({
+                url: generateUrl,
+                type: 'POST',
+                data: {
+                    url: $('#image_preview').attr('src')
+                },
+                success: res => {
+                    if (res.error) {
+                        Botble.showError(res.message);
+                    } else {
+                        Botble.showSuccess(res.data.content);
+                        imagePreview.hide();
+                        $promptEditor.val('');
+                        $('#auto-content-image-modal').modal('hide');
+                    }
+                },
+                error: data => {
+                    Botble.handleError(data);
+                }
+            });
+        });
+
+        $btnGenerate.on('click', function (event) {
+            event.preventDefault();
+
+            let $current = $(event.currentTarget);
+            let $generateUrl = $current.data('generate-url');
+            let $promptValue = $promptEditor.val();
+            $.ajax({
+                url: $generateUrl,
+                type: 'POST',
+                data: {
+                    size: $('#size option:selected').text(),
+                    image_prompt: $promptValue
+                },
+                beforeSend: () => {
+                    $self.updateModalState($self.imageModal, true);
+                },
+                success: res => {
+                    if (res.error) {
+                        Botble.showError(res.message);
+                    } else {
+                        let newImageUrl = res.data.content;
+                        imagePreview.attr('src', newImageUrl);
+                        imageUrl.attr('href', newImageUrl);
+                        imagePreview.show();
+                    }
+                },
+                error: data => {
+                    Botble.handleError(data);
+                },
+                complete: () => {
+                    $self.updateModalState($self.imageModal, false);
+                },
+            });
+        });
+    };
 
     handleGenerateEvents() {
         let $self = this;
@@ -155,8 +243,6 @@ class AutoContent {
 
         $btnPush.on('click', function (event) {
             event.preventDefault();
-
-            console.log('here');
             let editor = window.EDITOR.CKEDITOR[$previewEditor.prop('id')]
             let $contentValue = editor.getData();
             $self.pushContentToTarget($contentValue, 'content');

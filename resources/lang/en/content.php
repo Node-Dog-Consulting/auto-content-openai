@@ -3,6 +3,7 @@
 return [
     'name' => 'Auto Content',
     'generate' => 'Generate content',
+    'generate_image' => 'Generate image',
     'menu' => 'Auto Content',
     'setting' => [
         'page-title' => 'AutoContent settings',
@@ -42,6 +43,7 @@ return [
         'preview_placeholder' => 'Preview content',
         'extra_field' => 'Extra data',
         'request_output_format' => 'Presented in HTML for WYSIWYG editors.',
+        'image_size' => 'Image Size',
     ],
     'error' => [
         'Incomplete returned content' => 'Incomplete returned content',
