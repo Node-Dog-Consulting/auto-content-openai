@@ -9,7 +9,7 @@
             <div class="form-group mb-3">
                 {{ Form::label('size', trans('plugins/auto-content::content.form.image_size'), ['class' => 'text-title-field']) }}
                 <div class="ui-select-wrapper">
-                    {{ Form::select('size', ['1024x1024 - Square','1024x1792 - Portrait','1792x1024 - Landscape'], 'size', ['class' => 'ui-select', 'id' => 'size']) }}
+                    {{ Form::select('size', ['256x256 - Square', '512x512 - Square', '1024x1024 - Square','1024x1792 - Portrait','1792x1024 - Landscape'], 'size', ['class' => 'ui-select', 'id' => 'size']) }}
                     <svg class="svg-next-icon svg-next-icon-size-16">
                         <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#select-chevron"></use>
                     </svg>
