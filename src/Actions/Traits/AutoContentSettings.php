@@ -13,10 +13,8 @@ trait AutoContentSettings
         page_title()->setTitle(trans('plugins/auto-content::content.setting.page-title'));
 
         Assets::addScriptsDirectly([
-            'vendor/core/core/setting/js/setting.js',
             'vendor/core/plugins/auto-content/js/settings.js',
-        ])
-            ->addStylesDirectly('vendor/core/core/setting/css/setting.css');
+        ]);
 
         return view('plugins/auto-content::settings.index');
     }
@@ -40,6 +38,8 @@ trait AutoContentSettings
                 'autocontent_proxy_username',
                 'autocontent_proxy_password',
                 'autocontent_openai_api_url',
+                'autocontent_openai_image_models',
+                'autocontent_openai_default_image_model'
             ])
         );
 

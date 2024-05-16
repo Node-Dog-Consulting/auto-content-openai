@@ -64,7 +64,7 @@ trait AutoContentGenerate
         $prompt = $request->get('image_prompt');
         $size = $request->get('size');
 
-        $apiModel = setting('autocontent_openai_default_model');
+        $apiModel = setting('autocontent_openai_default_image_model');
 
         if (! OpenAi::checkInitedOpenAi()) {
             return $this->response
@@ -72,9 +72,7 @@ trait AutoContentGenerate
                 ->setMessage(trans('plugins/auto-content::content.error.OpenAi not initialized'));
         }
 
-//        $prompt = trans('plugins/auto-content::content.form.request_output_format')."\n".$prompt;
-
-        $result = OpenAi::generateImage($prompt, $size);
+        $result = OpenAi::generateImage($prompt, $size, $apiModel);
 
         return $this->response
             ->setData(['content' => $result]);

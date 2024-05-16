@@ -80,6 +80,17 @@
                                 target="_blank">{{ trans('plugins/auto-content::content.setting.see_documentation') }}</a>
                         </div>
                     </div>
+                    <div class="form-group mb-3">
+                        <label class="text-title-field"
+                               for="autocontent_openai_image_models">{{ trans('plugins/auto-content::content.setting.openai_image_model') }}
+                        </label>
+                        <div class="form-group mb-3" id="openai-image-model-wrapper"
+                             data-models="{{ setting('autocontent_openai_image_models') }}"
+                             data-default="{{ setting('autocontent_openai_default_image_model') }}">
+                            <a id="add-image-model" class="link" data-placeholder=""><small>+
+                                    {{ trans('plugins/auto-content::content.setting.add_more') }}</small></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -30,6 +30,7 @@ return [
         'proxy_port' => 'Proxy port',
         'add_more' => 'Add more',
         'see_documentation' => 'See documentation',
+        'openai_image_model' => 'Image model',
     ],
     'form' => [
         'title' => 'Auto Content',

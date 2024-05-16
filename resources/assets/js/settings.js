@@ -2,9 +2,14 @@ class SettingManagement {
     constructor() {
         this.$modelWrapper = $('#openai-model-wrapper');
         this.$promptTemplateWrapper = $('#prompt-template-wrapper');
+        this.$modelImageWrapper = $('#openai-image-model-wrapper');
 
         if (this.$modelWrapper.length) {
             this.handleMultipleModels();
+        }
+
+        if (this.$modelImageWrapper.length) {
+            this.handleMultipleImageModels();
         }
 
         if (this.$promptTemplateWrapper.length && Array.isArray($promptTemplates)) {
@@ -46,6 +51,52 @@ class SettingManagement {
         });
 
         this.$modelWrapper.on('change', '.more-model > input.item-model', function () {
+            const value = $(this).val();
+            $(this).siblings('.default-model').val(value);
+        });
+
+        $addBtn.on('click', e => {
+            e.preventDefault();
+            addModel();
+        });
+
+        render();
+    }
+
+    handleMultipleImageModels() {
+        const $addBtn = this.$modelImageWrapper.find('#add-image-model');
+        const $defaultModels = this.$modelImageWrapper.data('default');
+        let $apiModels = this.$modelImageWrapper.data('models');
+
+        if (!$apiModels.length) {
+            $apiModels = [''];
+        }
+
+        const addModel = (value = '') => {
+            const $newModel = $(`<div class="d-flex mt-2 more-image-model align-items-center">
+          <input type="radio" name="autocontent_openai_default_image_model" class="setting-selection-option default-image-model" value="${value}" ${value === $defaultModels ? 'checked' : ''}>
+          <input class="next-input item-model" placeholder="${$addBtn.data('placeholder')}" name="autocontent_openai_image_models[]" value="${value}" />
+          <a class="btn btn-link text-danger"><i class="fas fa-minus"></i></a>
+        </div>`);
+
+            $addBtn.before($newModel);
+        };
+
+        const render = () => {
+            $apiModels.forEach(model => {
+                addModel(model);
+            });
+        };
+
+        this.$modelImageWrapper.on('click', '.more-image-model > a', function () {
+            $(this).parents('.more-image-model').remove();
+            const $models = $('.more-image-model');
+            if (!$models.length) {
+                addModel();
+            }
+        });
+
+        this.$modelImageWrapper.on('change', '.more-image-model > input.item-model', function () {
             const value = $(this).val();
             $(this).siblings('.default-model').val(value);
         });
