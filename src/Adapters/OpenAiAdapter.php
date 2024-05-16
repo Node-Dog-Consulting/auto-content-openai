@@ -101,7 +101,6 @@ class OpenAiAdapter implements OpenAiInterface
             "prompt" => $prompt,
             "n" => 1,
             "size" => $size,
-            "response_format" => "url",
         ]);
         $chatHandler = new ChatResultHandler($chatResult, 'image');
 
